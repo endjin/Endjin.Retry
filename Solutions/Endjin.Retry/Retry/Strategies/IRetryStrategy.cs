@@ -4,6 +4,8 @@
 
     public interface IRetryStrategy
     {
+        event EventHandler<RetryEventArgs> Retrying;
+
         AggregateException Exception { get; }
 
         bool CanRetry { get; }
@@ -17,7 +19,5 @@
         TimeSpan PrepareToRetry(Exception lastException);
 
         void OnRetrying(RetryEventArgs eventArgs);
-
-        event EventHandler<RetryEventArgs> Retrying;
     }
 }

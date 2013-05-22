@@ -1,9 +1,13 @@
 namespace Endjin.Core.Retry
 {
+    #region Using Directives
+
     using System.Diagnostics.CodeAnalysis;
 
     using Endjin.Core.Async;
     using Endjin.Core.Async.Contracts;
+
+    #endregion 
 
     public static class RetryTask
     {

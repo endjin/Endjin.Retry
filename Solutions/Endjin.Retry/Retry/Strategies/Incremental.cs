@@ -9,8 +9,7 @@
         private readonly TimeSpan initialDelay;
         private int tryCount;
 
-        public Incremental()
-            : this(5, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2))
+        public Incremental() : this(5, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2))
         {
         }
 
@@ -38,6 +37,7 @@
             if (this.CanRetry)
             {
                 var delay = ((this.tryCount - 1) * this.step.TotalMilliseconds) + this.initialDelay.TotalMilliseconds;
+
                 return TimeSpan.FromMilliseconds(delay);
             }
 

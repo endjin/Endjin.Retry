@@ -7,8 +7,7 @@
         private readonly int maxTries;
         private int tryCount;
 
-        public Count()
-            : this(5)
+        public Count() : this(5)
         {
         }
 

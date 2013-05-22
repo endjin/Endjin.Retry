@@ -4,13 +4,12 @@
 
     public class Backoff : RetryStrategy
     {
-        private readonly int maxTries;
         private readonly TimeSpan deltaBackoff;
+        private readonly int maxTries;
 
         private int tryCount;
 
-        public Backoff()
-            : this(5,TimeSpan.FromSeconds(2))
+        public Backoff() : this(5,TimeSpan.FromSeconds(2))
         {
         }
 
@@ -18,18 +17,9 @@
         {
             this.maxTries = maxTries;
             this.deltaBackoff = deltaBackoff;
-
             this.MinBackoff = this.DefaultMinBackoff;
             this.MaxBackoff = this.DefaultMaxBackoff;
         }
-
-        public TimeSpan DefaultMinBackoff { get { return TimeSpan.FromSeconds(1); } }
-        public TimeSpan DefaultMaxBackoff { get { return TimeSpan.FromSeconds(30); } }
-
-        public TimeSpan MinBackoff { get; set; }
-        public TimeSpan MaxBackoff { get; set; }
-
-        public TimeSpan DeltaBackoff { get { return deltaBackoff; } }
 
         public override bool CanRetry
         {
@@ -38,6 +28,25 @@
                 return this.tryCount < this.maxTries;
             }
         }
+
+        public TimeSpan DefaultMinBackoff
+        {
+            get { return TimeSpan.FromSeconds(1); }
+        }
+        
+        public TimeSpan DefaultMaxBackoff
+        {
+            get { return TimeSpan.FromSeconds(30); }
+        }
+
+        public TimeSpan DeltaBackoff
+        {
+            get { return this.deltaBackoff; }
+        }
+
+        public TimeSpan MinBackoff { get; set; }
+        
+        public TimeSpan MaxBackoff { get; set; }
 
         public override TimeSpan PrepareToRetry(Exception lastException)
         {

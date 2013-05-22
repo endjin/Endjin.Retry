@@ -1,5 +1,7 @@
 namespace Endjin.Core.Retry
 {
+    #region Using Directives
+
     using System;
     using System.Diagnostics;
     using System.Linq;
@@ -8,6 +10,8 @@ namespace Endjin.Core.Retry
     using Endjin.Core.Async.Contracts;
     using Endjin.Core.Retry.Policies;
     using Endjin.Core.Retry.Strategies;
+
+    #endregion 
 
     public class RetryTaskFactory<T>
     {
@@ -317,13 +321,6 @@ namespace Endjin.Core.Retry
             return Task.Factory.StartNew(action, cancellationToken, taskCreationOptions, scheduler).ContinueWith(t => HandleTask(t, () => new Task(action, cancellationToken, taskCreationOptions), strategy, policy));
         }
 
-        private static void HandleTask(Task task, Func<Task> createTask, IRetryStrategy strategy, IRetryPolicy policy)
-        {
-            task = HandleRetry(task, createTask, strategy, policy);
-
-            HandleException(task, strategy);
-        }
-
         internal static void HandleException(Task task, IRetryStrategy strategy)
         {
             var exception = strategy.Exception;
@@ -364,6 +361,13 @@ namespace Endjin.Core.Retry
         private static bool WillRetry(Task task, IRetryStrategy strategy, IRetryPolicy policy)
         {
             return strategy.CanRetry && !task.IsCanceled && task.Exception.Flatten().InnerExceptions.All(policy.CanRetry);
+        }
+
+        private static void HandleTask(Task task, Func<Task> createTask, IRetryStrategy strategy, IRetryPolicy policy)
+        {
+            task = HandleRetry(task, createTask, strategy, policy);
+
+            HandleException(task, strategy);
         }
     }
 }

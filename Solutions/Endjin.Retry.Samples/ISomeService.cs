@@ -1,6 +1,6 @@
 ﻿namespace Endjin.Retry.Samples
 {
-    #region Using statements
+    #region Using Directives
 
     using System.Threading.Tasks;
 
@@ -15,6 +15,5 @@
         string FirstTask();
 
         string SecondTask(string parameter);
-
     }
 }

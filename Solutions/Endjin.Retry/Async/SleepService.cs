@@ -1,6 +1,6 @@
 ﻿namespace Endjin.Core.Async
 {
-    #region Using statements
+    #region Using Directives
 
     using System;
     using System.Threading;

@@ -1,6 +1,6 @@
 ﻿namespace Endjin.Core.Retry
 {
-    #region Using statements
+    #region Using Directives
 
     using System;
     using System.Threading;
@@ -19,6 +19,11 @@
         public static T Retry<T>(Func<T> func)
         {
             return Retry(func, CancellationToken.None, new Count(10), new AnyException());            
+        }
+
+        public static Task<T> RetryAsync<T>(Func<Task<T>> asyncFunc)
+        {
+            return RetryAsync(asyncFunc, CancellationToken.None, new Count(10), new AnyException());
         }
 
         private static T Retry<T>(Func<T> func, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
@@ -50,13 +55,6 @@
                 }
             }
             while (true);
-        }
-
-
-        public static Task<T> RetryAsync<T>(
-            Func<Task<T>> asyncFunc)
-        {
-            return RetryAsync(asyncFunc, CancellationToken.None, new Count(10), new AnyException());
         }
 
         private static async Task<T> RetryAsync<T>(Func<Task<T>> asyncFunc, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)

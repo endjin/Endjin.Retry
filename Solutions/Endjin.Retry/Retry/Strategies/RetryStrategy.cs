@@ -5,7 +5,9 @@
 
     public abstract class RetryStrategy : IRetryStrategy
     {
-        readonly List<Exception> exceptions = new List<Exception>();
+        private readonly List<Exception> exceptions = new List<Exception>();
+
+        public event EventHandler<RetryEventArgs> Retrying;
 
         public AggregateException Exception
         {
@@ -21,21 +23,24 @@
         }
 
         public abstract TimeSpan PrepareToRetry(Exception lastException);
-        
-        public event EventHandler<RetryEventArgs> Retrying;
 
         public void OnRetrying(RetryEventArgs e)
         {
             EventHandler<RetryEventArgs> handler = this.Retrying;
-            if (handler != null) handler(this, e);
+            
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
 
         protected void AddException(Exception exception)
         {
             var aggregateException = exception as AggregateException;
-            if( aggregateException != null)
+            
+            if (aggregateException != null)
             {
-                foreach( var ex in aggregateException.InnerExceptions)
+                foreach (var ex in aggregateException.InnerExceptions)
                 {
                     this.exceptions.Add(ex);
                 }

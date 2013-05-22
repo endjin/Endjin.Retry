@@ -10,7 +10,8 @@ namespace Endjin.Core.Retry
             this.DelayBeforeRetry = delayBeforeRetry;
         }
 
-        public Exception LastException { get; private set; }
         public TimeSpan DelayBeforeRetry { get; private set; }
+
+        public Exception LastException { get; private set; }
     }
 }

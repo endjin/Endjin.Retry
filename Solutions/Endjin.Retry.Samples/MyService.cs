@@ -1,6 +1,6 @@
 ﻿namespace Endjin.Retry.Samples
 {
-    #region Using statements
+    #region Using Directives
 
     using System;
     using System.Threading.Tasks;
@@ -18,8 +18,10 @@
             if (this.errorCount < 3)
             {
                 this.errorCount += 1;
+            
                 throw new Exception("Not this time, matey.");
             }
+
             return "world";
         }
 
@@ -28,8 +30,10 @@
             if (this.errorCount < 6)
             {
                 this.errorCount += 1;
+                
                 throw new Exception("Nice try.");
             }
+
             return "Hello " + parameter;
         }
 
@@ -40,7 +44,7 @@
 
         public Task<string> SecondTaskAsync(string parameter)
         {
-            return Task<string>.Factory.StartNew(()=>this.SecondTask(parameter));
+            return Task<string>.Factory.StartNew(() => this.SecondTask(parameter));
         }
     }
 }
