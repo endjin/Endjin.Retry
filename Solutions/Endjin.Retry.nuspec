@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <version>1.0.0.0</version>
+    <authors>Endjin</authors>
+    <owners />
+    <id>Endjin.Retry</id>
+    <title>Endjin Retry Framework</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Endjin Retry Framework enables you to simply retry a TPL, async or synchronous operation using a variety of retry strategies and policies.</description>
+    <iconUrl>https://raw.github.com/endjin/Endjin.Retry/master/Assets/Retry.png</iconUrl>
+  </metadata>
+  <files>
+	<file src="EndjinRetry.dll" target="lib\portable-windows8+net45\EndjinRetry.dll" />
+	<file src="EndjinRetry.pdb" target="lib\portable-windows8+net45\EndjinRetry.pdb" />
+  </files>
+</package>
