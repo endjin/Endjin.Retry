@@ -26,7 +26,7 @@
             return RetryAsync(asyncFunc, CancellationToken.None, new Count(10), new AnyException());
         }
 
-        private static T Retry<T>(Func<T> func, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
+        public static T Retry<T>(Func<T> func, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
         {
             do
             {
@@ -57,7 +57,7 @@
             while (true);
         }
 
-        private static async Task<T> RetryAsync<T>(Func<Task<T>> asyncFunc, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
+        public static async Task<T> RetryAsync<T>(Func<Task<T>> asyncFunc, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
         {
             do
             {
