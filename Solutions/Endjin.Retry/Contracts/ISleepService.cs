@@ -1,4 +1,4 @@
-﻿namespace Endjin.Core.Async.Contracts
+﻿namespace Endjin.Retry.Contracts
 {
     using System;
 

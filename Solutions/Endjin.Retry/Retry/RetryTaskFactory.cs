@@ -7,9 +7,9 @@ namespace Endjin.Core.Retry
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Endjin.Core.Async.Contracts;
     using Endjin.Core.Retry.Policies;
     using Endjin.Core.Retry.Strategies;
+    using Endjin.Retry.Contracts;
 
     #endregion 
 

@@ -4,8 +4,8 @@ namespace Endjin.Core.Retry
 
     using System.Diagnostics.CodeAnalysis;
 
-    using Endjin.Core.Async;
-    using Endjin.Core.Async.Contracts;
+    using Endjin.Retry.Async;
+    using Endjin.Retry.Contracts;
 
     #endregion 
 

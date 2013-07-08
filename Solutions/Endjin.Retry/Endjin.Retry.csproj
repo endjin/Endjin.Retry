@@ -36,7 +36,7 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Async\Contracts\ISleepService.cs" />
+    <Compile Include="Contracts\ISleepService.cs" />
     <Compile Include="Async\SleepService.cs" />
     <Compile Include="Retry\Policies\AggregatePolicy.cs" />
     <Compile Include="Retry\Policies\AnyException.cs" />

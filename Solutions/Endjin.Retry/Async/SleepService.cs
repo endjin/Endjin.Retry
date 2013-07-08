@@ -1,11 +1,11 @@
-﻿namespace Endjin.Core.Async
+﻿namespace Endjin.Retry.Async
 {
     #region Using Directives
 
     using System;
     using System.Threading;
 
-    using Endjin.Core.Async.Contracts;
+    using Endjin.Retry.Contracts;
 
     #endregion
 
