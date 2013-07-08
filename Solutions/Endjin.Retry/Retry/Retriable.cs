@@ -1,4 +1,6 @@
-﻿namespace Endjin.Core.Retry
+﻿using Endjin.Retry.Async;
+
+namespace Endjin.Core.Retry
 {
     #region Using Directives
 
@@ -14,7 +16,13 @@
 
     public static class Retriable
     {
-        public static ISleepService SleepService { get; set; }
+        private static ISleepService sleepService;
+
+        public static ISleepService SleepService
+        {
+            get { return sleepService ?? (sleepService = new SleepService()); }
+            set { sleepService = value; }
+        }
 
         public static T Retry<T>(Func<T> func)
         {
