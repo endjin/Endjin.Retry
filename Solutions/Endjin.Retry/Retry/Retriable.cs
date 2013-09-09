@@ -1,6 +1,4 @@
-﻿using Endjin.Retry.Async;
-
-namespace Endjin.Core.Retry
+﻿namespace Endjin.Core.Retry
 {
     #region Using Directives
 
@@ -10,6 +8,7 @@ namespace Endjin.Core.Retry
 
     using Endjin.Core.Retry.Policies;
     using Endjin.Core.Retry.Strategies;
+    using Endjin.Retry.Async;
     using Endjin.Retry.Contracts;
 
     #endregion
