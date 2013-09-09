@@ -34,6 +34,16 @@ namespace Endjin.Core.Retry
             return RetryAsync(asyncFunc, CancellationToken.None, new Count(10), new AnyException());
         }
 
+        public static void Retry(Action func)
+        {
+            Retry(func, CancellationToken.None, new Count(10), new AnyException());
+        }
+
+        public static Task RetryAsync(Func<Task> asyncFunc)
+        {
+            return RetryAsync(asyncFunc, CancellationToken.None, new Count(10), new AnyException());
+        }
+
         public static T Retry<T>(Func<T> func, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
         {
             do
@@ -74,6 +84,74 @@ namespace Endjin.Core.Retry
                 try
                 {
                     return await asyncFunc();
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                }
+
+                var delay = strategy.PrepareToRetry(exception);
+
+                if (!WillRetry(exception, cancellationToken, strategy, policy))
+                {
+                    throw exception;
+                }
+
+                strategy.OnRetrying(new RetryEventArgs(exception, delay));
+
+                if (delay != TimeSpan.Zero)
+                {
+                    if (SleepService != null)
+                    {
+                        SleepService.Sleep(delay);
+                    }
+                }
+            }
+            while (true);
+        }
+
+        public static void Retry(Action func, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
+        {
+            do
+            {
+                try
+                {
+                    func();
+                    return;
+                }
+                catch (Exception exception)
+                {
+                    var delay = strategy.PrepareToRetry(exception);
+
+                    if (!WillRetry(exception, cancellationToken, strategy, policy))
+                    {
+                        throw;
+                    }
+
+                    strategy.OnRetrying(new RetryEventArgs(exception, delay));
+
+                    if (delay != TimeSpan.Zero)
+                    {
+                        if (SleepService != null)
+                        {
+                            SleepService.Sleep(delay);
+                        }
+                    }
+                }
+            }
+            while (true);
+        }
+
+        public static async Task RetryAsync(Func<Task> asyncFunc, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
+        {
+            do
+            {
+                Exception exception;
+
+                try
+                {
+                    await asyncFunc();
+                    return;
                 }
                 catch (Exception ex)
                 {
