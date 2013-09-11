@@ -1,17 +1,22 @@
-<?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-  <metadata>
-    <version>1.0.0.0</version>
-    <authors>Endjin</authors>
-    <owners />
-    <id>Endjin.Retry</id>
-    <title>Endjin Retry Framework</title>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Endjin Retry Framework enables you to simply retry a TPL, async or synchronous operation using a variety of retry strategies and policies.</description>
-    <iconUrl>https://raw.github.com/endjin/Endjin.Retry/master/Assets/Retry.png</iconUrl>
-  </metadata>
-  <files>
-	<file src="EndjinRetry.dll" target="lib\portable-windows8+net45\EndjinRetry.dll" />
-	<file src="EndjinRetry.pdb" target="lib\portable-windows8+net45\EndjinRetry.pdb" />
-  </files>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Endjin.Retry</id>
+        <version>1.0.0.0</version>
+        <title>Endjin Retry Framework</title>
+        <authors>Endjin</authors>
+        <owners>Endjin</owners>
+        <projectUrl>https://github.com/endjin/Endjin.Retry</projectUrl>
+        <iconUrl>https://raw.github.com/endjin/Endjin.Retry/master/Assets/Retry.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Endjin Retry Framework enables you to simply retry a TPL, async or synchronous operation using a variety of retry strategies and policies.</description>
+        <summary>Endjin Retry Framework enables you to simply retry a TPL, async or synchronous operation using a variety of retry strategies and policies.</summary>
+        <releaseNotes>See http://blogs.endjin.com/2013/05/retrying-tasks-with-tpl-async-and-synchronous-code/ for more examples</releaseNotes>
+        <copyright>Endjin 2013</copyright>
+        <language>el-GR</language>
+    </metadata>
+    <files>
+        <file src="EndjinRetry.dll" target="lib\portable-net45+win8\EndjinRetry.dll" />
+        <file src="EndjinRetry.pdb" target="lib\portable-net45+win8\EndjinRetry.pdb" />
+    </files>
 </package>
