@@ -13,7 +13,7 @@
         <summary>Endjin Retry Framework enables you to simply retry a TPL, async or synchronous operation using a variety of retry strategies and policies.</summary>
         <releaseNotes>See http://blogs.endjin.com/2013/05/retrying-tasks-with-tpl-async-and-synchronous-code/ for more examples</releaseNotes>
         <copyright>Endjin 2013</copyright>
-        <language>el-GR</language>
+        <language>en-GB</language>
     </metadata>
     <files>
         <file src="EndjinRetry.dll" target="lib\portable-net45+win8\EndjinRetry.dll" />
