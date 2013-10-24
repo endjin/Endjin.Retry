@@ -38,6 +38,10 @@
   <ItemGroup>
     <Compile Include="Contracts\ISleepService.cs" />
     <Compile Include="Async\SleepService.cs" />
+    <Compile Include="Repeat\Repeatable.cs" />
+    <Compile Include="Repeat\Strategies\BackOffPollingStrategy.cs" />
+    <Compile Include="Repeat\Strategies\IPeriodicityStrategy.cs" />
+    <Compile Include="Repeat\Strategies\LinearPollingStrategy.cs" />
     <Compile Include="Retry\Policies\AggregatePolicy.cs" />
     <Compile Include="Retry\Policies\AnyException.cs" />
     <Compile Include="Retry\Policies\IRetryPolicy.cs" />
