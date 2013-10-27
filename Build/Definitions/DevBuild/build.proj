@@ -21,14 +21,13 @@
     </SolutionsToBuild>
   </ItemGroup>
 
-  <!-- Define all the Visual Studio Project to be packaged -->
-  <!--<ItemGroup>
-    <ProjectsToPackage Include="$(SolutionsRoot)\.ccproj">
-      <Configuration>Release</Configuration>
-      <Platform>Any CPU</Platform>
-      <OutputDir>$(OutDir)\</OutputDir>
-      <PublishDir>$(OutDir)\Azure\</PublishDir>
-    </ProjectsToPackage>
-  </ItemGroup>-->
+  <ItemGroup>
+    <Artefact Include="$(BuildPath)\..\Artefacts\License.txt">
+      <Destination>$(OutDir)\</Destination>
+    </Artefact>
+    <Artefact Include="$(BuildPath)\..\Artefacts\Install.ps1">
+      <Destination>$(OutDir)\</Destination>
+    </Artefact>
+  </ItemGroup>
 
 </Project>

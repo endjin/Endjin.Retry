@@ -45,6 +45,7 @@
     <None Include="Targets\Compile\CleanSolutions.targets" />
     <None Include="Targets\Compile\Compile.targets" />
     <None Include="Targets\Compile\CompileSolutions.targets" />
+    <None Include="Targets\Compile\CopyArtefacts.targets" />
     <None Include="Targets\Drop\InitialiseDropLocation.targets" />
     <None Include="Targets\Drop\Drop.properties" />
     <None Include="Targets\Drop\Drop.targets" />

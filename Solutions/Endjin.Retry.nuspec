@@ -18,5 +18,7 @@
     <files>
         <file src="EndjinRetry.dll" target="lib\portable-net45+win8\EndjinRetry.dll" />
         <file src="EndjinRetry.pdb" target="lib\portable-net45+win8\EndjinRetry.pdb" />
+
+        <file src="Install.ps1" target="tools" />
     </files>
 </package>
