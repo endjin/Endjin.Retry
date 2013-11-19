@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Endjin.Core.Repeat.Strategies;
-
-namespace Endjin.Core.Repeat
+﻿namespace Endjin.Core.Repeat
 {
+    #region Using Directives
+
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Endjin.Core.Repeat.Strategies;
+
+    #endregion 
+
     public static class Repeatable
     {
         public static void Repeat(CancellationToken cancellationToken, TimeSpan periodicity, Action<CancellationToken> action)
