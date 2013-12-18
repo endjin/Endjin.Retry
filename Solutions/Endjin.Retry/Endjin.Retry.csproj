@@ -54,6 +54,7 @@
     <Compile Include="Retry\Strategies\Count.cs" />
     <Compile Include="Retry\Strategies\Incremental.cs" />
     <Compile Include="Retry\Strategies\IRetryStrategy.cs" />
+    <Compile Include="Retry\Strategies\Linear.cs" />
     <Compile Include="Retry\Strategies\RetryStrategy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
