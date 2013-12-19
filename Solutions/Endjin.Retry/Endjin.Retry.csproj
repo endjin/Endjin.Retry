@@ -52,6 +52,7 @@
     <Compile Include="Retry\RetryTaskFactory.cs" />
     <Compile Include="Retry\Strategies\Backoff.cs" />
     <Compile Include="Retry\Strategies\Count.cs" />
+    <Compile Include="Retry\Strategies\DoNotRetry.cs" />
     <Compile Include="Retry\Strategies\Incremental.cs" />
     <Compile Include="Retry\Strategies\IRetryStrategy.cs" />
     <Compile Include="Retry\Strategies\Linear.cs" />
