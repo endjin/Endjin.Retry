@@ -32,19 +32,23 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Artefacts\endjin-public.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\ISleepService.cs" />
+    <Compile Include="Contracts\Async\ISleepService.cs" />
     <Compile Include="Async\SleepService.cs" />
     <Compile Include="Repeat\Repeatable.cs" />
     <Compile Include="Repeat\Strategies\BackOffPeriodicityStrategy.cs" />
-    <Compile Include="Repeat\Strategies\IPeriodicityStrategy.cs" />
+    <Compile Include="Contracts\Repeat\Strategies\IPeriodicityStrategy.cs" />
     <Compile Include="Repeat\Strategies\LinearPeriodicityStrategy.cs" />
     <Compile Include="Retry\Policies\AggregatePolicy.cs" />
     <Compile Include="Retry\Policies\AnyException.cs" />
-    <Compile Include="Retry\Policies\IRetryPolicy.cs" />
+    <Compile Include="Contracts\Retry\Policies\IRetryPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Retry\Retriable.cs" />
     <Compile Include="Retry\RetryEventArgs.cs" />
@@ -54,7 +58,7 @@
     <Compile Include="Retry\Strategies\Count.cs" />
     <Compile Include="Retry\Strategies\DoNotRetry.cs" />
     <Compile Include="Retry\Strategies\Incremental.cs" />
-    <Compile Include="Retry\Strategies\IRetryStrategy.cs" />
+    <Compile Include="Contracts\Retry\Strategies\IRetryStrategy.cs" />
     <Compile Include="Retry\Strategies\Linear.cs" />
     <Compile Include="Retry\Strategies\RetryStrategy.cs" />
   </ItemGroup>
