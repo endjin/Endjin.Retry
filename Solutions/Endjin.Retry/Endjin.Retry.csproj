@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Contracts\Async\ISleepService.cs" />
     <Compile Include="Async\SleepService.cs" />
+    <Compile Include="Repeat\PeriodicTaskFactory.cs" />
     <Compile Include="Repeat\Repeatable.cs" />
     <Compile Include="Repeat\Strategies\BackOffPeriodicityStrategy.cs" />
     <Compile Include="Contracts\Repeat\Strategies\IPeriodicityStrategy.cs" />
