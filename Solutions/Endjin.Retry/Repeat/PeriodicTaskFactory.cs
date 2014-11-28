@@ -52,16 +52,22 @@
 
             Action mainAction = () =>
             {
-                MainPeriodicTaskAction(
-                    intervalInMilliseconds, 
-                    delayInMilliseconds, 
-                    duration, 
-                    maxIterations, 
-                    cancelToken, 
-                    stopWatch, 
-                    synchronous,
-                    wrapperAction, 
-                    periodicTaskCreationOptions);
+                try
+                {
+                    MainPeriodicTaskAction(
+                        intervalInMilliseconds,
+                        delayInMilliseconds,
+                        duration,
+                        maxIterations,
+                        cancelToken,
+                        stopWatch,
+                        synchronous,
+                        wrapperAction,
+                        periodicTaskCreationOptions);
+                }
+                catch (TaskCanceledException taskCancelled)
+                {                   
+                }
             };
 
             return Task.Factory.StartNew(mainAction, cancelToken, TaskCreationOptions.LongRunning, TaskScheduler.Current);
@@ -91,84 +97,91 @@
             Action wrapperAction,
             TaskCreationOptions periodicTaskCreationOptions)
         {
-            var subTaskCreationOptions = TaskCreationOptions.AttachedToParent | periodicTaskCreationOptions;
-
-            CheckIfCancelled(cancelToken);
-
-            if (delayInMilliseconds > 0)
+            try
             {
-                Task.Delay(delayInMilliseconds, cancelToken).Wait(cancelToken);
-            }
+                var subTaskCreationOptions = TaskCreationOptions.AttachedToParent | periodicTaskCreationOptions;
 
-            if (maxIterations == 0)
-            {
-                return;
-            }
+                CheckIfCancelled(cancelToken);
 
-            int iteration = 0;
-
-            ////////////////////////////////////////////////////////////////////////////
-            // using a ManualResetEventSlim as it is more efficient in small intervals.
-            // In the case where longer intervals are used, it will automatically use 
-            // a standard WaitHandle....
-            // see http://msdn.microsoft.com/en-us/library/vstudio/5hbefs30(v=vs.100).aspx
-            using (var periodResetEvent = new ManualResetEventSlim(false))
-            {
-                ////////////////////////////////////////////////////////////
-                // Main periodic logic. Basically loop through this block
-                // executing the action
-                while (true)
+                if (delayInMilliseconds > 0)
                 {
-                    CheckIfCancelled(cancelToken);
+                    Task.Delay(delayInMilliseconds, cancelToken).Wait(cancelToken);
+                }
 
-                    Task subTask = Task.Factory.StartNew(wrapperAction, cancelToken, subTaskCreationOptions, TaskScheduler.Current);
+                if (maxIterations == 0)
+                {
+                    return;
+                }
 
-                    if (synchronous)
+                int iteration = 0;
+
+                ////////////////////////////////////////////////////////////////////////////
+                // using a ManualResetEventSlim as it is more efficient in small intervals.
+                // In the case where longer intervals are used, it will automatically use 
+                // a standard WaitHandle....
+                // see http://msdn.microsoft.com/en-us/library/vstudio/5hbefs30(v=vs.100).aspx
+                using (var periodResetEvent = new ManualResetEventSlim(false))
+                {
+                    ////////////////////////////////////////////////////////////
+                    // Main periodic logic. Basically loop through this block
+                    // executing the action
+                    while (true)
                     {
-                        stopWatch.Start();
+                        CheckIfCancelled(cancelToken);
+
+                        Task subTask = Task.Factory.StartNew(wrapperAction, cancelToken, subTaskCreationOptions, TaskScheduler.Current);
+
+                        if (synchronous)
+                        {
+                            stopWatch.Start();
+                            try
+                            {
+                                subTask.Wait(cancelToken);
+                            }
+                            catch
+                            {
+                                /* do not let an errant subtask to kill the periodic task...*/
+                            }
+
+                            stopWatch.Stop();
+                        }
+
+                        // use the same Timeout setting as the System.Threading.Timer, infinite timeout will execute only one iteration.
+                        if (intervalInMilliseconds == Timeout.Infinite)
+                        {
+                            break;
+                        }
+
+                        iteration++;
+
+                        if (maxIterations > 0 && iteration >= maxIterations)
+                        {
+                            break;
+                        }
+
                         try
                         {
-                            subTask.Wait(cancelToken);
+                            stopWatch.Start();
+                            periodResetEvent.Wait(intervalInMilliseconds, cancelToken);
+                            stopWatch.Stop();
                         }
-                        catch
+                        finally
                         {
-                             /* do not let an errant subtask to kill the periodic task...*/
+                            periodResetEvent.Reset();
                         }
 
-                        stopWatch.Stop();
-                    }
+                        CheckIfCancelled(cancelToken);
 
-                    // use the same Timeout setting as the System.Threading.Timer, infinite timeout will execute only one iteration.
-                    if (intervalInMilliseconds == Timeout.Infinite)
-                    {
-                        break;
-                    }
-
-                    iteration++;
-
-                    if (maxIterations > 0 && iteration >= maxIterations)
-                    {
-                        break;
-                    }
-
-                    try
-                    {
-                        stopWatch.Start();
-                        periodResetEvent.Wait(intervalInMilliseconds, cancelToken);
-                        stopWatch.Stop();
-                    }
-                    finally
-                    {
-                        periodResetEvent.Reset();
-                    }
-
-                    CheckIfCancelled(cancelToken);
-
-                    if (duration > 0 && stopWatch.ElapsedMilliseconds >= duration)
-                    {
-                        break;
+                        if (duration > 0 && stopWatch.ElapsedMilliseconds >= duration)
+                        {
+                            break;
+                        }
                     }
                 }
+            }
+            catch (TaskCanceledException)
+            {
+                // Just stop if we get a task cancelled exception
             }
         }
 
