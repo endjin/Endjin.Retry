@@ -179,7 +179,7 @@
                     }
                 }
             }
-            catch (TaskCanceledException)
+            catch (OperationCanceledException)
             {
                 // Just stop if we get a task cancelled exception
             }
