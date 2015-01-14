@@ -26,3 +26,5 @@ The default policy is AnyException - you can always retry regardless of the part
 We also provide an AggregatePolicy which allows you to retry if and only if all of a set of policies allow you to retry. 
 
 It is up to you to write custom policy if you want particular exceptions to be "non-retryable" For example, you might set up a policy that does not allow you to retry if you get a 404 (not found) from an http operation, but does retry if you get a 501 (internal server error)
+
+See http://blogs.endjin.com/2013/05/retrying-tasks-with-tpl-async-and-synchronous-code/ for more examples.
