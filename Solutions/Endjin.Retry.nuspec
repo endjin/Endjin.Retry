@@ -7,7 +7,7 @@
         <authors>Endjin</authors>
         <owners>Endjin</owners>
         <projectUrl>https://github.com/endjin/Endjin.Retry</projectUrl>
-        <iconUrl>https://raw.github.com/endjin/Endjin.Retry/master/Assets/Retry.png</iconUrl>
+        <iconUrl>https://raw.github.com/endjin/Endjin.Retry/master/Artefacts/Retry-48px.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Endjin Retry Framework enables you to simply retry a TPL, async or synchronous operation using a variety of retry strategies and policies.</description>
         <summary>Endjin Retry Framework enables you to simply retry a TPL, async or synchronous operation using a variety of retry strategies and policies.</summary>
