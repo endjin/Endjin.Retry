@@ -30,7 +30,12 @@
 
         public static Task<T> RetryAsync<T>(Func<Task<T>> asyncFunc)
         {
-            return RetryAsync(asyncFunc, CancellationToken.None, new Count(10), new AnyException());
+            return RetryAsync(asyncFunc, true);
+        }
+
+        public static Task<T> RetryAsync<T>(Func<Task<T>> asyncFunc, bool continueOnCapturedContext)
+        {
+            return RetryAsync(asyncFunc, CancellationToken.None, new Count(10), new AnyException(), continueOnCapturedContext);
         }
 
         public static void Retry(Action func)
@@ -40,7 +45,12 @@
 
         public static Task RetryAsync(Func<Task> asyncFunc)
         {
-            return RetryAsync(asyncFunc, CancellationToken.None, new Count(10), new AnyException());
+            return RetryAsync(asyncFunc, true);
+        }
+
+        public static Task RetryAsync(Func<Task> asyncFunc, bool continueOnCapturedContext)
+        {
+            return RetryAsync(asyncFunc, CancellationToken.None, new Count(10), new AnyException(), continueOnCapturedContext);
         }
 
         public static T Retry<T>(Func<T> func, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
@@ -73,8 +83,13 @@
             }
             while (true);
         }
+        
+        public static Task<T> RetryAsync<T>(Func<Task<T>> asyncFunc, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
+        {
+            return RetryAsync(asyncFunc, cancellationToken, strategy, policy, true);
+        }
 
-        public static async Task<T> RetryAsync<T>(Func<Task<T>> asyncFunc, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
+        public static async Task<T> RetryAsync<T>(Func<Task<T>> asyncFunc, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy, bool continueOnCapturedContext)
         {
             do
             {
@@ -82,7 +97,7 @@
 
                 try
                 {
-                    return await asyncFunc();
+                    return await asyncFunc().ConfigureAwait(continueOnCapturedContext);
                 }
                 catch (Exception ex)
                 {
@@ -140,8 +155,13 @@
             }
             while (true);
         }
+        
+        public static Task RetryAsync(Func<Task> asyncFunc, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
+        {
+            return RetryAsync(asyncFunc, cancellationToken, strategy, policy, true);
+        }
 
-        public static async Task RetryAsync(Func<Task> asyncFunc, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy)
+        public static async Task RetryAsync(Func<Task> asyncFunc, CancellationToken cancellationToken, IRetryStrategy strategy, IRetryPolicy policy, bool continueOnCapturedContext)
         {
             do
             {
@@ -149,7 +169,7 @@
 
                 try
                 {
-                    await asyncFunc();
+                    await asyncFunc().ConfigureAwait(continueOnCapturedContext);
                     return;
                 }
                 catch (Exception ex)
