@@ -105,7 +105,7 @@
                 return;
             }
 
-            int iteration = 0;
+            var iteration = 0;
 
             ////////////////////////////////////////////////////////////////////////////
             // using a ManualResetEventSlim as it is more efficient in small intervals.
@@ -121,7 +121,7 @@
                 {
                     CheckIfCancelled(cancelToken);
 
-                    Task subTask = Task.Factory.StartNew(wrapperAction, cancelToken, subTaskCreationOptions, TaskScheduler.Current);
+                    var subTask = Task.Factory.StartNew(wrapperAction, cancelToken, subTaskCreationOptions, TaskScheduler.Current);
 
                     if (synchronous)
                     {
