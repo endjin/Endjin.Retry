@@ -1,3 +1,5 @@
+This library has been superseeded by https://github.com/corvus-dotnet/Corvus.Retry
+
 Endjin.Retry
 ============
 
